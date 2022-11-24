@@ -13,6 +13,7 @@ WINDOW_HEIGHT = 480
 FRAMES_PER_SECOND = 30
 BALL_WIDTH_HEIGHT = 100
 N_PIXELS_PER_FRAME = 3
+BASE_PATH = sys.path[0]
 
 # 3 - Initialize the world
 pygame.init()
@@ -20,7 +21,8 @@ window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 clock = pygame.time.Clock()
  
 # 4 - Load assets: image(s), sound(s),  etc.
-ballImage = pygame.image.load('images/ball.png')
+path_to_ball = BASE_PATH + '/images/ball.png'
+ballImage = pygame.image.load(path_to_ball)
 
 # 5 - Initialize variables
 MAX_WIDTH = WINDOW_WIDTH - BALL_WIDTH_HEIGHT
