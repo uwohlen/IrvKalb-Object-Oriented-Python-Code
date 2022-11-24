@@ -17,7 +17,8 @@ MAX_HEIGHT = WINDOW_HEIGHT - BALL_WIDTH_HEIGHT
 TARGET_X = 400
 TARGET_Y = 320
 TARGET_WIDTH_HEIGHT = 120
-N_PIXELS_TO_MOVE = 3
+N_PIXELS_TO_MOVE = 20
+BASE_PATH = sys.path[0]
 
 # 3 - Initialize the world
 pygame.init()
@@ -25,14 +26,16 @@ window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 clock = pygame.time.Clock()
  
 # 4 - Load assets: image(s), sound(s),  etc.
-ballImage = pygame.image.load('images/ball.png')
-targetImage = pygame.image.load('images/target.jpg')
+path_to_ball = BASE_PATH + '/images/ball.png'
+ballImage = pygame.image.load(path_to_ball)
+path_to_target = BASE_PATH + '/images/target.jpg'
+targetImage = pygame.image.load(path_to_target)
  
 # 5 - Initialize variables
 ballX = random.randrange(MAX_WIDTH)
 ballY = random.randrange(MAX_HEIGHT)
 targetRect = pygame.Rect(TARGET_X, TARGET_Y, TARGET_WIDTH_HEIGHT, TARGET_WIDTH_HEIGHT)
-
+antall = 0
 # 6 - Loop forever
 while True:
 
@@ -54,13 +57,15 @@ while True:
             elif event.key == pygame.K_DOWN:
                 ballY = ballY + N_PIXELS_TO_MOVE
 
+            ballRect = pygame.Rect(ballX, ballY,BALL_WIDTH_HEIGHT, BALL_WIDTH_HEIGHT)
+            if ballRect.colliderect(targetRect):
+                antall += 1
+                print('Ball is touching the target',antall)
+                #pygame.quit()  
+                #sys.exit()
     # 8  Do any "per frame" actions
     # Check if the ball is colliding with the target
-    ballRect = pygame.Rect(ballX, ballY,
-                                       BALL_WIDTH_HEIGHT, BALL_WIDTH_HEIGHT)
-    if ballRect.colliderect(targetRect):
-        print('Ball is touching the target')
-        
+    
     # 9 - Clear the window
     window.fill(BLACK)
     
